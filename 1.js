@@ -6,10 +6,28 @@ document.addEventListener("DOMContentLoaded", (e) => {
     window
       .fetch(URL_API)
       .then((response) => response.json())
-      .then((data) => (responseDatas = data.data));
+      .then((data) => {
+        responseDatas = data.data;
+        initRender(responseDatas);
+      });
   };
   fetchData();
 });
+const initRender = (data) => {
+  data.map((el) => {
+    resultElement.innerHTML += `<div class="card">
+    <div class="card-header">
+      <img src="${el.avatar}" alt="${el.first_name}" />
+    </div>
+    <div class="card-desc">
+      <p>Username : @${el.first_name}</p>
+      <h2>Name : ${el.first_name} ${el.last_name}</h2>
+      <p>Email : ${el.email}</p>
+    </div>
+    <button class="card-action">Contact Me !</button>
+      `;
+  });
+};
 // element Selector
 const searchText = document.querySelector("#searchThis");
 const resultElement = document.querySelector(".result");
